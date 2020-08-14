@@ -20,7 +20,7 @@ public class RelTypeTest {
     for (TaxRelType nrt : TaxRelType.values()) {
       RelType rt = RelType.from(nrt);
       assertNotNull("Neo4j relation for " + nrt + " missing ", rt);
-      assertEquals(nrt, rt.taxRelType);
+      assertEquals(nrt, rt.conceptRelType);
     }
   }
 

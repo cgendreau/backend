@@ -48,6 +48,7 @@ public class ImportMetrics implements ImportAttempt {
   private Integer taxonCount;
   private Integer synonymCount;
   private Integer referenceCount;
+  private Integer pageReferenceCount;
   private Integer typeMaterialCount;
   private Integer distributionCount;
   private Integer mediaCount;
@@ -65,7 +66,8 @@ public class ImportMetrics implements ImportAttempt {
   private Map<MediaType, Integer> mediaByTypeCount = Maps.newHashMap();
   private Map<TaxonomicStatus, Integer> usagesByStatusCount = Maps.newHashMap();
   private Map<Rank, Integer> taxaByRankCount = Maps.newHashMap();
-  private Map<TaxRelType, Integer> taxonRelationsByTypeCount = Maps.newHashMap();
+  private Map<TaxonConceptRelType, Integer> taxonConceptRelationsByTypeCount = Maps.newHashMap();
+  private Map<SpeciesInteractionType, Integer> speciesInteractionsByTypeCount = Maps.newHashMap();
   private Map<Issue, Integer> issuesCount = Maps.newHashMap();
   
   public Integer getDatasetKey() {
@@ -162,6 +164,14 @@ public class ImportMetrics implements ImportAttempt {
   
   public void setReferenceCount(Integer referenceCount) {
     this.referenceCount = referenceCount;
+  }
+
+  public Integer getPageReferenceCount() {
+    return pageReferenceCount;
+  }
+
+  public void setPageReferenceCount(Integer pageReferenceCount) {
+    this.pageReferenceCount = pageReferenceCount;
   }
 
   public Integer getDistributionCount() {
@@ -307,12 +317,20 @@ public class ImportMetrics implements ImportAttempt {
     this.taxaByRankCount = taxaByRankCount;
   }
 
-  public Map<TaxRelType, Integer> getTaxonRelationsByTypeCount() {
-    return taxonRelationsByTypeCount;
+  public Map<TaxonConceptRelType, Integer> getTaxonConceptRelationsByTypeCount() {
+    return taxonConceptRelationsByTypeCount;
   }
 
-  public void setTaxonRelationsByTypeCount(Map<TaxRelType, Integer> taxonRelationsByTypeCount) {
-    this.taxonRelationsByTypeCount = taxonRelationsByTypeCount;
+  public void setTaxonConceptRelationsByTypeCount(Map<TaxonConceptRelType, Integer> taxonConceptRelationsByTypeCount) {
+    this.taxonConceptRelationsByTypeCount = taxonConceptRelationsByTypeCount;
+  }
+
+  public Map<SpeciesInteractionType, Integer> getSpeciesInteractionsByTypeCount() {
+    return speciesInteractionsByTypeCount;
+  }
+
+  public void setSpeciesInteractionsByTypeCount(Map<SpeciesInteractionType, Integer> speciesInteractionsByTypeCount) {
+    this.speciesInteractionsByTypeCount = speciesInteractionsByTypeCount;
   }
 
   public Map<Issue, Integer> getIssuesCount() {
@@ -336,6 +354,7 @@ public class ImportMetrics implements ImportAttempt {
     taxonCount = sum(taxonCount, m.taxonCount);
     synonymCount = sum(synonymCount, m.synonymCount);
     referenceCount = sum(referenceCount, m.referenceCount);
+    pageReferenceCount = sum(pageReferenceCount, m.pageReferenceCount);
     typeMaterialCount = sum(typeMaterialCount, m.typeMaterialCount);
     distributionCount = sum(distributionCount, m.distributionCount);
     mediaCount = sum(mediaCount, m.mediaCount);
@@ -353,7 +372,8 @@ public class ImportMetrics implements ImportAttempt {
     mediaByTypeCount = sum(mediaByTypeCount, m.mediaByTypeCount);
     usagesByStatusCount = sum(usagesByStatusCount, m.usagesByStatusCount);
     taxaByRankCount = sum(taxaByRankCount, m.taxaByRankCount);
-    taxonRelationsByTypeCount = sum(taxonRelationsByTypeCount, m.taxonRelationsByTypeCount);
+    taxonConceptRelationsByTypeCount = sum(taxonConceptRelationsByTypeCount, m.taxonConceptRelationsByTypeCount);
+    speciesInteractionsByTypeCount = sum(speciesInteractionsByTypeCount, m.speciesInteractionsByTypeCount);
     issuesCount = sum(issuesCount, m.issuesCount);
   }
 
@@ -413,15 +433,18 @@ public class ImportMetrics implements ImportAttempt {
       Objects.equals(mediaByTypeCount, that.mediaByTypeCount) &&
       Objects.equals(usagesByStatusCount, that.usagesByStatusCount) &&
       Objects.equals(taxaByRankCount, that.taxaByRankCount) &&
-      Objects.equals(taxonRelationsByTypeCount, that.taxonRelationsByTypeCount) &&
+      Objects.equals(taxonConceptRelationsByTypeCount, that.taxonConceptRelationsByTypeCount) &&
+      Objects.equals(speciesInteractionsByTypeCount, that.speciesInteractionsByTypeCount) &&
       Objects.equals(issuesCount, that.issuesCount);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(datasetKey, attempt, job, state, started, finished, createdBy, error,
-      nameCount, taxonCount, synonymCount, referenceCount, typeMaterialCount, distributionCount, mediaCount, treatmentCount, vernacularCount, sectorCount,
-      namesByTypeCount, namesByStatusCount, namesByOriginCount, namesByRankCount, nameRelationsByTypeCount, typeMaterialByStatusCount, distributionsByGazetteerCount, vernacularsByLanguageCount, mediaByTypeCount, usagesByStatusCount, taxaByRankCount, taxonRelationsByTypeCount, issuesCount);
+      nameCount, taxonCount, synonymCount, referenceCount, pageReferenceCount, typeMaterialCount, distributionCount, mediaCount, treatmentCount, vernacularCount, sectorCount,
+      namesByTypeCount, namesByStatusCount, namesByOriginCount, namesByRankCount, nameRelationsByTypeCount, typeMaterialByStatusCount, distributionsByGazetteerCount,
+      vernacularsByLanguageCount, mediaByTypeCount, usagesByStatusCount, taxaByRankCount, taxonConceptRelationsByTypeCount,
+      speciesInteractionsByTypeCount, issuesCount);
   }
 
   @Override

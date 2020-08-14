@@ -162,7 +162,7 @@ public class ColdpInterpreter extends InterpreterBase {
   }
 
   Optional<NeoRel> interpretTaxonRelations(VerbatimRecord rec) {
-    return interpretRelations(rec, TaxRelTypeParser.PARSER, RelType::from);
+    return interpretRelations(rec, TaxonConceptTypeParser.PARSER, RelType::from);
   }
 
   <T extends Enum> Optional<NeoRel> interpretRelations(VerbatimRecord rec, EnumParser<T> parser, Function<T, RelType> typeFunction) {
@@ -260,7 +260,7 @@ public class ColdpInterpreter extends InterpreterBase {
       setReference(v, ColdpTerm.publishedInID, rid -> {
           n.setPublishedInId(rid);
           n.setPublishedInPage(v.get(ColdpTerm.publishedInPage));
-          n.setPublishedInYear(parseYear(ColdpTerm.publishedInYear, v));
+          n.setPublishedInYear(parseYear(ColdpTerm.namePublishedInYear, v));
       });
       if (opt.get().getPublishedIn() == null) {
         String pubInAuthorship = opt.get().getPublishedIn();

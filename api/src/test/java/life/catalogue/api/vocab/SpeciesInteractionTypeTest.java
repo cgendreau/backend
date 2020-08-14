@@ -23,4 +23,13 @@ public class SpeciesInteractionTypeTest {
     assertEquals(7, symetric);
   }
 
+
+  @Test
+  public void gfdgfd() {
+    for (SpeciesInteractionType t : SpeciesInteractionType.values()) {
+      //   INTERACTS_WITH("interacts", SpeciesInteractionType.INTERACTS_WITH),
+      System.out.println(String.format("%s(\"%s\", SpeciesInteractionType.%s),", t.name(), t.name().toLowerCase(), t.name()));
+    }
+  }
+
 }

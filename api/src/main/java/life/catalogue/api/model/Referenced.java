@@ -8,5 +8,5 @@ public interface Referenced {
   String getReferenceId();
   
   void setReferenceId(String referenceId);
-  
+
 }

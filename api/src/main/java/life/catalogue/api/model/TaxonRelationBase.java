@@ -1,19 +1,18 @@
 package life.catalogue.api.model;
 
-import life.catalogue.api.vocab.TaxRelType;
-
 import java.util.Objects;
 
 /**
- * A taxon concept or species interaction relation between two taxa.
+ * A taxon concept relation between two taxa.
  */
-public class TaxonRelation extends DatasetScopedEntity<Integer> implements VerbatimEntity, Referenced {
+abstract class TaxonRelationBase<T extends Enum> extends DatasetScopedEntity<Integer> implements VerbatimEntity, PageReferenced {
   private Integer verbatimKey;
   private Integer datasetKey;
-  private TaxRelType type;
+  private T type;
   private String taxonId;
   private String relatedTaxonId;
   private String referenceId;
+  private String pageReferenceId;
   private String remarks;
   
   @Override
@@ -34,11 +33,11 @@ public class TaxonRelation extends DatasetScopedEntity<Integer> implements Verba
     this.datasetKey = datasetKey;
   }
 
-  public TaxRelType getType() {
+  public T getType() {
     return type;
   }
 
-  public void setType(TaxRelType type) {
+  public void setType(T type) {
     this.type = type;
   }
 
@@ -68,6 +67,16 @@ public class TaxonRelation extends DatasetScopedEntity<Integer> implements Verba
     this.referenceId = referenceId;
   }
 
+  @Override
+  public String getPageReferenceId() {
+    return pageReferenceId;
+  }
+
+  @Override
+  public void setPageReferenceId(String pageReferenceId) {
+    this.pageReferenceId = pageReferenceId;
+  }
+
   public String getRemarks() {
     return remarks;
   }
@@ -79,20 +88,21 @@ public class TaxonRelation extends DatasetScopedEntity<Integer> implements Verba
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof TaxonRelation)) return false;
+    if (!(o instanceof TaxonRelationBase)) return false;
     if (!super.equals(o)) return false;
-    TaxonRelation that = (TaxonRelation) o;
+    TaxonRelationBase<?> that = (TaxonRelationBase<?>) o;
     return Objects.equals(verbatimKey, that.verbatimKey) &&
       Objects.equals(datasetKey, that.datasetKey) &&
-      type == that.type &&
+      Objects.equals(type, that.type) &&
       Objects.equals(taxonId, that.taxonId) &&
       Objects.equals(relatedTaxonId, that.relatedTaxonId) &&
       Objects.equals(referenceId, that.referenceId) &&
+      Objects.equals(pageReferenceId, that.pageReferenceId) &&
       Objects.equals(remarks, that.remarks);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), verbatimKey, datasetKey, type, taxonId, relatedTaxonId, referenceId, remarks);
+    return Objects.hash(super.hashCode(), verbatimKey, datasetKey, type, taxonId, relatedTaxonId, referenceId, pageReferenceId, remarks);
   }
 }
